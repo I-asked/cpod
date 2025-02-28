@@ -1,0 +1,3 @@
+h1. CPod
+
+A (hopefully) better iPod emulator.

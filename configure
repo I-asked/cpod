@@ -1,0 +1,3 @@
+#!/bin/sh
+echo 'This project does not use autotools.'
+echo 'It is enough to just run `make` to build the project.'
