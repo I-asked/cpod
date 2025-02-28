@@ -1,3 +1,7 @@
-h1. CPod
+h1. CPod <a href="https://oql.avris.it/license.html?c=Cloud%20System%20%28Cu%29%7Chttps%3A%2F%2Fgithub.com%2FI-asked" target="_blank" rel="noopener"><img src="https://badgers.space/badge/License/OQL/pink" alt="License: OQL" style="vertical-align: middle;"/></a>
 
-A (hopefully) better iPod emulator.
+A (hopefully) good iPod emulator.
+
+Written in pure C99 with some Apple Blocks.
+
+Hope you like it! 🤩

@@ -13,10 +13,6 @@
 
 static CPod cpod;
 
-static void register_dump(CCore *core) {
-  // TODO
-}
-
 static int init_core(CCore *core) {
   core->arm7 = arm7_init();
 
