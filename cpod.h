@@ -12,10 +12,6 @@
 #define MAX_CORES   (2)
 #define MAX_DEVICES (32)
 
-typedef struct _CDevice {
-  uint64_t device_id;
-} CDevice;
-
 typedef enum _CMemAccess {
   CMEM_READ,
   CMEM_WRITE,
@@ -66,12 +62,7 @@ typedef struct _CPod {
   SDL_Renderer *sdl_ren;
 
   dispatch_queue_t queue;
-
-  size_t num_devices;
-  CDevice *devices[MAX_DEVICES];
 } CPod;
-
-CDevice *get_device(CPod *cpod, uint64_t device_id);
 
 void suspend_core(CCore *core);
 

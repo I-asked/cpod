@@ -1,0 +1,29 @@
+TSRCS		:= $(wildcard test/*.c)
+TTARGETS	:= $(TSRCS:.c=)
+TDEPS		:= $(TSRCS:.c=.d)
+
+.PHONY: tests clean distclean testclean testdistclean
+tests: $(TTARGETS)
+
+CFLAGS	+= -DCPOD_TEST
+
+include makefile
+
+$(TTARGETS): $(OBJS)
+
+CFLAGS	+= $(shell pkg-config --cflags cmocka)
+LDLIBS	+= $(shell pkg-config --libs-only-l cmocka)
+LDFLAGS += $(shell pkg-config --libs-only-L --libs-only-other cmocka)
+
+testclean:
+	$(RM) $(TDEPS)
+
+testdistclean: testclean
+	$(RM) $(TTARGETS)
+
+clean: testclean
+
+distclean: testdistclean
+
+
+#-include $(TDEPS)

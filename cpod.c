@@ -68,6 +68,8 @@ static void my_close(void) {
   free(cpod.sram);
 }
 
+#ifndef CPOD_TEST
+
 int main(int argc, char *argv[]) {
   if (argc < 2) {
     ERROR("Usage: %s [rom]\n", argv[0]);
@@ -136,15 +138,7 @@ int main(int argc, char *argv[]) {
   dispatch_main();
 }
 
-static int find_device(const void *a, const void *b) {
-  return (*(const CDevice **)a)->device_id - (*(const CDevice **)b)->device_id;
-}
-
-CDevice *get_device(CPod *cpod, uint64_t device_id) {
-  CDevice cdev = { device_id };
-  CDevice *com = &cdev;
-  return bsearch(&com, cpod->devices, cpod->num_devices, sizeof(CDevice *), find_device);
-}
+#endif
 
 void suspend_core(CCore *core) {
   dispatch_semaphore_wait(core->resource, DISPATCH_TIME_FOREVER);

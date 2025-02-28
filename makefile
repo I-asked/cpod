@@ -1,6 +1,6 @@
-CSRC		:= $(wildcard *.c) $(wildcard **/*.c)
+CSRC		:= $(wildcard *.c) $(wildcard device/*.c)
 OBJS		:= $(CSRC:.c=.o)
-DEPS		:= $(wildcard *.d) $(wildcard **/*.d)
+DEPS		:= $(wildcard *.d) $(wildcard device/*.d)
 
 TARGET  := cpod
 
@@ -14,7 +14,7 @@ CFLAGS  += -Wno-error=sign-compare -Wno-error=missing-field-initializers \
 					 -Wno-error=char-subscripts -Wno-error=format \
 					 -Wno-error=unused-function
 
-CCID		:= $(shell $(CC) --version |head -1 |grep -E '^\S*')
+CCID		:= $(shell $(CC) --version |head -1 |grep -Eo '^\S*')
 OSID		:= $(shell uname -s)
 
 ifeq ($(OSID),Linux)
@@ -46,4 +46,4 @@ distclean: clean
 	$(RM) $(TARGET)
 
 
--include $(DEPS)
+#-include $(DEPS)
