@@ -23,11 +23,34 @@ void map_memcon(CMemoryMap *map, uint64_t base, CCore *core) {
       CMemoryMap *map = &maps[unit_index];
       if (unit_sub == 4) {
         map->prot |= CMEM_READ | CMEM_WRITE | CMEM_FETCH;
-        map->read = Block_copy(^uint32_t(uint32_t address, uint32_t size) {
-          return core->arm7.read32((value & 0xFFFF0000) + address - map->base);
+        map->read = Block_copy(^uint32_t(uint32_t address_wr, uint32_t size_wr) {
+          switch (size_wr) {
+          case 1: {
+            return core->arm7.read8((value & 0xFFFF0000) + address_wr - map->base);
+          } break;
+          case 2: {
+            return core->arm7.read16((value & 0xFFFF0000) + address_wr - map->base);
+          } break;
+          case 4: {
+            return core->arm7.read32((value & 0xFFFF0000) + address_wr - map->base);
+          } break;
+          default: {
+            ERROR("mmu: read size mismatch\n");
+          }
+          }
         });
-        map->write = Block_copy(^(uint32_t address, uint32_t size, uint32_t value_wr) {
-          core->arm7.write32((value & 0xFFFF0000) + address - map->base, value_wr);
+        map->write = Block_copy(^(uint32_t address_wr, uint32_t size_wr, uint32_t value_wr) {
+          switch (size_wr) {
+          case 1: {
+            core->arm7.write8((value & 0xFFFF0000) + address_wr - map->base, value_wr);
+          } break;
+          case 2: {
+            core->arm7.write16((value & 0xFFFF0000) + address_wr - map->base, value_wr);
+          } break;
+          case 4: {
+            core->arm7.write32((value & 0xFFFF0000) + address_wr - map->base, value_wr);
+          } break;
+          }
         });
       } else if (unit_sub == 0) {
         // TODO:XXX: logic!

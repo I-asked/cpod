@@ -2,8 +2,8 @@
 
 #include <Block.h>
 
-void map_ram(CMemoryMap *map, char *ram, size_t ram_sz) {
-  map->base = 0x10000000;
+void map_ram(CMemoryMap *map, char *ram, uint32_t ram_base, size_t ram_sz) {
+  map->base = ram_base;
   map->mask = -1;
   map->size = ram_sz;
   map->prot = CMEM_FETCH | CMEM_READ | CMEM_WRITE;

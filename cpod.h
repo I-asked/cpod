@@ -10,7 +10,6 @@
 #include <stdbool.h>
 
 #define MAX_CORES   (2)
-#define MAX_DEVICES (32)
 
 typedef enum _CMemAccess {
   CMEM_READ,
@@ -42,7 +41,10 @@ typedef struct _CCore {
   arm7_t arm7;
   CMemoryMap *mmap_head;
 
-  dispatch_semaphore_t resource;
+  dispatch_queue_t queue;
+
+  dispatch_source_t clock;
+  uint32_t megahertz;
 
   uint32_t entry;
 } CCore;
@@ -60,10 +62,9 @@ typedef struct _CPod {
 
   SDL_Window *sdl_win;
   SDL_Renderer *sdl_ren;
+  SDL_Surface *sdl_sur;
 
-  dispatch_queue_t queue;
+  struct _CCPUConData *cpucon;
+  struct _CIRQConData *irqcon;
+  struct _CTimerData *timer;
 } CPod;
-
-void suspend_core(CCore *core);
-
-void resume_core(CCore *core);

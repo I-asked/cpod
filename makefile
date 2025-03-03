@@ -5,8 +5,11 @@ DEPS		:= $(wildcard *.d) $(wildcard device/*.d)
 TARGET  := cpod
 
 CFLAGS  += -MMD -MP -Wall -Wextra -Werror -std=c99 -pedantic -ggdb -O0
-CFLAGS  += -fsanitize=address
-LDFLAGS += -fsanitize=address
+CFLAGS  += -march=x86-64-v2 -mtune=native
+LDFLAGS += -fuse-ld=mold
+
+#CFLAGS  += -fsanitize=address
+#LDFLAGS += -fsanitize=address
 
 CFLAGS  += -Wno-unused-parameter -Wno-gnu-zero-variadic-macro-arguments
 CFLAGS  += -Wno-error=sign-compare -Wno-error=missing-field-initializers \

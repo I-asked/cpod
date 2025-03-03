@@ -2,4 +2,4 @@
 
 #include "../cpod.h"
 
-void map_cpuid(CMemoryMap *cpod, uint64_t base, uint8_t (^read)(void));
+void map_cpuid(CMemoryMap *cpod, uint64_t base, uint8_t cpuid);
